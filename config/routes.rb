@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users
-  # ここにtopコントローラーのindexアクションのルーティングを追加する
   root 'top#index'
-  
-  resources :list, only: %i(new create edit update destroy)
+
+  resources :list, only: %i(new create edit update destroy) do
+    resources :card, only: %i(new create show edit update destroy)
+    
+    resources :card, except: %i(index)
+  end
+
+
 end
